@@ -7,6 +7,7 @@ public enum BizExceptionEnum {
     // 通用异常
     PARAM_ERROR(400, "参数错误"),
     ID_NOT_NULL(400, "ID不能为空"),
+    USERNAME_NOT_NULL(400, "用户名不能为空"),
     DATA_NOT_EXIST(404, "数据不存在"),
 
     // 业务异常

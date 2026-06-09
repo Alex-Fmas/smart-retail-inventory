@@ -17,7 +17,7 @@ public interface SysRoleService {
      * @param role
      * @return
      */
-    int addRole(SysRole role);
+    Long addRole(SysRole role);
     /**
      * 更新角色
      * @param role

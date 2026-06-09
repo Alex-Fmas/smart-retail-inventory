@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.retail.inventory.mapper.StockLogMapper">
 
+    <select id="ListStockLog" resultType="com.retail.inventory.entity.StockLog">
+        SELECT
+        id, product_id, from_area, to_area,
+        quantity, type, operator_id, create_time
+        FROM stock_log
+    </select>
 
     <delete id="deleteStockLog">
         DELETE FROM stock_log
@@ -27,7 +33,7 @@
                 type = #{type},
             </if>
             <if test="operatorId != null">
-                operator_id = #{operatorId}
+                operator_id = #{operatorId},
             </if>
         </set>
         WHERE id = #{id}
@@ -36,10 +42,10 @@
     <insert id="addStockLog" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO stock_log (
         product_id, from_area, to_area,
-        quantity, type, operator_id
+        quantity, type, operator_id, create_time
         ) VALUES (
         #{productId}, #{fromArea}, #{toArea},
-        #{quantity}, #{type}, #{operatorId}
+        #{quantity}, #{type}, #{operatorId}, #{createTime}
         )
     </insert>
 

@@ -6,9 +6,10 @@ import com.retail.inventory.exception.BizExceptionEnum;
 import com.retail.inventory.mapper.SysUserMapper;
 import com.retail.inventory.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class SysUserServiceImpl implements SysUserService {
     @Autowired
     SysUserMapper sysUserMapper;
@@ -19,9 +20,19 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public int addSysUser(SysUser sysUser) {
+    public SysUser getSysUserByName(String name) {
+        if(name == null) {
+            throw new BizException(BizExceptionEnum.USERNAME_NOT_NULL);
+        }
+        SysUser sysUserByName = sysUserMapper.getByUsername(name);
+        return sysUserByName;
+    }
+
+    @Override
+    public Long addSysUser(SysUser sysUser) {
         int result = sysUserMapper.addSysUser(sysUser);
-        return result;
+        Long id = sysUser.getId();
+        return id;
     }
 
     @Override

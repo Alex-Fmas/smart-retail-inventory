@@ -22,8 +22,9 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public int addRole(SysRole role) {
-        int id = sysRoleMapper.addRole(role);
+    public Long addRole(SysRole role) {
+        int result = sysRoleMapper.addRole(role);
+        Long id = role.getId();
         return id;
     }
 

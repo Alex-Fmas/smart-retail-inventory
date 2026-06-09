@@ -2,6 +2,8 @@ package com.retail.inventory.service;
 
 import com.retail.inventory.entity.StockLog;
 
+import java.util.List;
+
 public interface StockLogService {
     /**
      * 根据id查询
@@ -15,7 +17,7 @@ public interface StockLogService {
      * @param stockLog
      * @return
      */
-    int addStockLog(StockLog stockLog);
+    Long addStockLog(StockLog stockLog);
 
     /**
      * 更新流水
@@ -30,4 +32,11 @@ public interface StockLogService {
      * @return
      */
     int deleteStockLog(Long id);
+
+    /**
+     * 获取所有流水
+     * @return
+     */
+    List<StockLog> listStockLog();
+
 }

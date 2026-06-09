@@ -8,6 +8,8 @@ import com.retail.inventory.service.StockLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StockLogServiceImpl implements StockLogService {
     @Autowired
@@ -19,8 +21,9 @@ public class StockLogServiceImpl implements StockLogService {
     }
 
     @Override
-    public int addStockLog(StockLog stockLog) {
-        int id = stockLogMapper.addStockLog(stockLog);
+    public Long addStockLog(StockLog stockLog) {
+        int result = stockLogMapper.addStockLog(stockLog);
+        Long id = stockLog.getId();
         return id;
     }
 
@@ -37,5 +40,11 @@ public class StockLogServiceImpl implements StockLogService {
     public int deleteStockLog(Long id) {
         int result = stockLogMapper.deleteStockLog(id);
         return result;
+    }
+
+    @Override
+    public List<StockLog> listStockLog() {
+        List<StockLog> stockLogs = stockLogMapper.ListStockLog();
+        return stockLogs;
     }
 }

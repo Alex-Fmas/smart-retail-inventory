@@ -11,8 +11,8 @@
     </select>
 
     <insert id="addSysUser" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO sys_user(username,password,nickname,phone,status)
-        VALUES(#{username},#{password},#{nickname},#{phone},#{status})
+        INSERT INTO sys_user(username,password,nickname,phone,status,create_time)
+        VALUES(#{username},#{password},#{nickname},#{phone},#{status},#{createTime})
     </insert>
 
     <update id="updateSysUser">

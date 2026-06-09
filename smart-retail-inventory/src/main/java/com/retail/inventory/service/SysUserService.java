@@ -13,11 +13,18 @@ public interface SysUserService {
     SysUser getSysUserById(Long id);
 
     /**
+     * 根据用户名查询用户
+     * @param name
+     * @return
+     */
+    SysUser getSysUserByName(String name);
+
+    /**
      * 添加用户
      * @param sysUser
      * @return
      */
-    int addSysUser(SysUser sysUser);
+    Long addSysUser(SysUser sysUser);
 
     /**
      * 修改用户

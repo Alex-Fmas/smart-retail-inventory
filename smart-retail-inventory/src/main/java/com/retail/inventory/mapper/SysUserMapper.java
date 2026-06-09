@@ -9,6 +9,8 @@ import java.util.List;
 public interface SysUserMapper {
     SysUser getSysUserById(Long id);
 
+    SysUser getByUsername(String username);
+
     int addSysUser(SysUser sysUser);
 
     int updateSysUser(SysUser sysUser);
