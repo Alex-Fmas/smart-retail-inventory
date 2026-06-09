@@ -1,8 +1,12 @@
 package com.retail.inventory.dto.user;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+
+import java.time.LocalDateTime;
+
 
 @Data
 public class UserAddDTO {
@@ -17,4 +21,7 @@ public class UserAddDTO {
     
     @Pattern(regexp = "^1[3-9]\\d{9}$", message = "手机号格式不正确")
     private String phone;
+
+    @NotNull(message = "创建时间不能为空")
+    private LocalDateTime createTime;
 }

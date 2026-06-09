@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 
 @Data
 public class StockLogAddDTO {
@@ -23,4 +25,7 @@ public class StockLogAddDTO {
     
     @NotNull(message = "操作人ID不能为空")
     private Long operatorId;
+
+    @NotNull(message = "操作时间不能为空")
+    private LocalDateTime createTime;
 }
