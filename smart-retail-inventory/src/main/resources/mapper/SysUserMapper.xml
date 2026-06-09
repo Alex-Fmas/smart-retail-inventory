@@ -1,4 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.retail.inventory.mapper.SysUserMapper">
+
+    <select id="getSysUserById" resultType="com.retail.inventory.entity.SysUser">
+        SELECT * FROM sys_user WHERE id = #{id}
+    </select>
+
+    <select id="getByUsername" resultType="com.retail.inventory.entity.SysUser">
+        SELECT * FROM sys_user WHERE username = #{username}
+    </select>
+
+    <insert id="addSysUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user(username,password,nickname,phone,status)
+        VALUES(#{username},#{password},#{nickname},#{phone},#{status})
+    </insert>
+
+    <update id="updateSysUser">
+        UPDATE sys_user
+        <set>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="status != null">
+                status = #{status}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteSysUser">
+        DELETE FROM sys_user WHERE id = #{id}
+    </delete>
+
+    <select id="ListUser" resultType="com.retail.inventory.entity.SysUser">
+        SELECT * FROM sys_user
+    </select>
+
 </mapper>

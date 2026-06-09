@@ -1,0 +1,27 @@
+package com.retail.inventory.exception;
+import lombok.Getter;
+
+@Getter
+public enum BizExceptionEnum {
+
+    // 通用异常
+    PARAM_ERROR(400, "参数错误"),
+    ID_NOT_NULL(400, "ID不能为空"),
+    DATA_NOT_EXIST(404, "数据不存在"),
+
+    // 业务异常
+    PRODUCT_NOT_EXIST(1001, "商品不存在"),
+    INVENTORY_NOT_EXIST(1002, "库存记录不存在"),
+    STOCK_NOT_ENOUGH(1003, "库存不足"),
+
+    // 系统异常
+    SYSTEM_ERROR(500, "服务器繁忙，请稍后再试");
+
+    private final Integer code;
+    private final String message;
+
+    BizExceptionEnum(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+}

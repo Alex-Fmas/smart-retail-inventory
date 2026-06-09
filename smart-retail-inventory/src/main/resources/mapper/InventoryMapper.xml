@@ -1,4 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.retail.inventory.mapper.InventoryMapper">
+
+    <select id="ListInventory" resultType="com.retail.inventory.entity.Inventory">
+        SELECT
+        id,
+        product_id,
+        area_type,
+        quantity,
+        min_threshold
+        FROM inventory
+    </select>
+
+    <delete id="deleteInventory">
+        DELETE FROM inventory
+        WHERE id = #{id}
+    </delete>
+
+    <update id="updateInventory">
+        UPDATE inventory
+        <set>
+            <if test="productId != null">
+                product_id = #{productId},
+            </if>
+            <if test="areaType != null">
+                area_type = #{areaType},
+            </if>
+            <if test="quantity != null">
+                quantity = #{quantity},
+            </if>
+            <if test="minThreshold != null">
+                min_threshold = #{minThreshold}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <insert id="addInventory" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO inventory(product_id, area_type, quantity, min_threshold)
+        VALUES (#{productId}, #{areaType}, #{quantity}, #{minThreshold})
+    </insert>
+
+    <select id="getInventoryById" resultType="com.retail.inventory.entity.Inventory">
+        SELECT * FROM inventory WHERE id = #{id}
+    </select>
+
+
 </mapper>

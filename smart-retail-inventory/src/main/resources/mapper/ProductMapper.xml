@@ -1,4 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.retail.inventory.mapper.ProductMapper">
+
+    <select id="ListProduct" resultType="com.retail.inventory.entity.Product">
+        SELECT id, barcode, name, price, unit
+        FROM product
+    </select>
+
+    <delete id="deleteProduct">
+        DELETE FROM product
+        WHERE id = #{id}
+    </delete>
+
+    <update id="updateProduct">
+        UPDATE product
+        <set>
+            <if test="barcode != null and barcode != ''">
+                barcode = #{barcode},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="unit != null">
+                unit = #{unit}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <insert id="addProduct" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO product (barcode, name, price, unit)
+        VALUES (#{barcode}, #{name}, #{price}, #{unit})
+    </insert>
+
+    <select id="getProductById" resultType="com.retail.inventory.entity.Product">
+        SELECT id, barcode, name, price, unit
+        FROM product
+        WHERE id = #{id}
+    </select>
+
 </mapper>

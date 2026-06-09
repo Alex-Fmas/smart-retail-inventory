@@ -1,4 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.retail.inventory.mapper.StockLogMapper">
+
+
+    <delete id="deleteStockLog">
+        DELETE FROM stock_log
+        WHERE id = #{id}
+    </delete>
+
+    <update id="updateStockLog">
+        UPDATE stock_log
+        <set>
+            <if test="productId != null">
+                product_id = #{productId},
+            </if>
+            <if test="fromArea != null">
+                from_area = #{fromArea},
+            </if>
+            <if test="toArea != null">
+                to_area = #{toArea},
+            </if>
+            <if test="quantity != null">
+                quantity = #{quantity},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="operatorId != null">
+                operator_id = #{operatorId}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <insert id="addStockLog" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO stock_log (
+        product_id, from_area, to_area,
+        quantity, type, operator_id
+        ) VALUES (
+        #{productId}, #{fromArea}, #{toArea},
+        #{quantity}, #{type}, #{operatorId}
+        )
+    </insert>
+
+    <select id="getStockLogById" resultType="com.retail.inventory.entity.StockLog">
+        SELECT
+        id, product_id, from_area, to_area,
+        quantity, type, operator_id, create_time
+        FROM stock_log
+        WHERE id = #{id}
+    </select>
+
 </mapper>

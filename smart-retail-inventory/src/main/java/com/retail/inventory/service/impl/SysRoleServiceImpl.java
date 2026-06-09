@@ -1,0 +1,50 @@
+package com.retail.inventory.service.impl;
+
+import com.retail.inventory.entity.SysRole;
+import com.retail.inventory.exception.BizException;
+import com.retail.inventory.exception.BizExceptionEnum;
+import com.retail.inventory.mapper.SysRoleMapper;
+import com.retail.inventory.service.SysRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class SysRoleServiceImpl implements SysRoleService {
+    @Autowired
+    SysRoleMapper sysRoleMapper;
+
+    @Override
+    public SysRole getRoleById(Long id) {
+        SysRole roleById = sysRoleMapper.getRoleById(id);
+        return roleById;
+    }
+
+    @Override
+    public int addRole(SysRole role) {
+        int id = sysRoleMapper.addRole(role);
+        return id;
+    }
+
+    @Override
+    public int updateRole(SysRole role) {
+        if (role.getId() == null) {
+            throw new BizException(BizExceptionEnum.ID_NOT_NULL);
+        }
+        int result = sysRoleMapper.updateRole(role);
+        return result;
+    }
+
+    @Override
+    public int deleteRole(Long id) {
+        int result = sysRoleMapper.deleteRole(id);
+        return result;
+    }
+
+    @Override
+    public List<SysRole> listRoles() {
+        List<SysRole> listRoles = sysRoleMapper.listRoles();
+        return listRoles;
+    }
+}

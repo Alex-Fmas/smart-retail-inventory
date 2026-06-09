@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.retail.inventory.mapper.SysRoleMapper">
+    <select id="getRoleById" resultType="com.retail.inventory.entity.SysRole">
+        SELECT * FROM sys_role WHERE id=#{id}
+    </select>
+    <insert id="addRole" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_role(role_name,description) VALUES(#{roleName},#{description})
+    </insert>
+    <update id="updateRole">
+        UPDATE sys_role
+        SET role_name=#{roleName},description=#{description}
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteRole">
+        DELETE FROM sys_role WHERE id=#{id}
+    </delete>
+    <select id="listRoles" resultType="com.retail.inventory.entity.SysRole">
+        SELECT * FROM sys_role
+    </select>
 </mapper>

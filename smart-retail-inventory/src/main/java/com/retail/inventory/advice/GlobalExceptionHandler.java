@@ -1,0 +1,16 @@
+package com.retail.inventory.advice;
+
+import com.retail.inventory.common.Result;
+import com.retail.inventory.exception.BizException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(BizException.class)
+    public Result handleException(BizException e) {
+        System.out.println("全局异常处理" + "BizException");
+        return Result.error(e.getCode(), e.getMessage());
+    }
+
+}

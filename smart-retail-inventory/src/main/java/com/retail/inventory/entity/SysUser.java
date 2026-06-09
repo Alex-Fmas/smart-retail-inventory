@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 @Data
 public class SysUser {
     private Long id;
-    private String userName;
+    private String username;
     private String password;
-    private String nickName;
+    private String nickname;
     private String phone;
     private Integer status;
     private LocalDateTime createTime;
