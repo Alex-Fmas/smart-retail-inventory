@@ -13,7 +13,7 @@ public interface ProductMapper{
 
     public int updateProduct(Product product);
 
-    public int deleteProduct(int id);
+    public int deleteProduct(Long id);
 
     public List<Product> ListProduct();
 }

@@ -46,7 +46,7 @@ public class ProductServiceTest {
             System.out.println(product);
         }
         System.out.println("--------deleteProduct-------");
-        int deleteProduct = productService.deleteProduct(8);
+        int deleteProduct = productService.deleteProduct(8L);
         System.out.println("返回值：" + deleteProduct);
 
         System.out.println("--------ListProduct-------");

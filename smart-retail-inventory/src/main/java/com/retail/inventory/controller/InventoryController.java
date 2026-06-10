@@ -5,18 +5,20 @@ import com.retail.inventory.dto.inventory.InventoryAddDTO;
 import com.retail.inventory.dto.inventory.InventoryUpdateDTO;
 import com.retail.inventory.entity.Inventory;
 import com.retail.inventory.entity.Product;
-import com.retail.inventory.exception.BizExceptionEnum;
 import com.retail.inventory.service.InventoryService;
 import com.retail.inventory.service.ProductService;
 import com.retail.inventory.vo.inventory.InventoryVO;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Validated
 @RestController
 @RequestMapping("/inventory")
 public class InventoryController {
@@ -31,14 +33,11 @@ public class InventoryController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result<InventoryVO> getInventoryById(@PathVariable Long id) {
-        if (id != null) {
-            Inventory inventoryById = inventoryService.getInventoryById(id);
-            Product productById = productService.getProductById(inventoryById.getProductId());
-            InventoryVO inventoryVO = new InventoryVO().setInventory(inventoryById, productById.getName());
-            return Result.success(inventoryVO);
-        }
-        return Result.error(BizExceptionEnum.ID_NOT_NULL);
+    public Result<InventoryVO> getInventoryById(@NotNull @PathVariable Long id) {
+        Inventory inventoryById = inventoryService.getInventoryById(id);
+        Product productById = productService.getProductById(inventoryById.getProductId());
+        InventoryVO inventoryVO = new InventoryVO().setInventory(inventoryById, productById.getName());
+        return Result.success(inventoryVO);
     }
 
     /**

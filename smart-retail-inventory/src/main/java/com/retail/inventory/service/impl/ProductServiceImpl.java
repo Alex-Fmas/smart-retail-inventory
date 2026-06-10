@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int deleteProduct(int id) {
+    public int deleteProduct(Long id) {
         int result = productMapper.deleteProduct(id);
         return result;
     }

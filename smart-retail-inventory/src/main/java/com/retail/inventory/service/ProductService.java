@@ -28,7 +28,7 @@ public interface ProductService {
      * @param id
      * @return
      */
-    public int deleteProduct(int id);
+    public int deleteProduct(Long id);
     /**
      * 查询所有商品
      * @return

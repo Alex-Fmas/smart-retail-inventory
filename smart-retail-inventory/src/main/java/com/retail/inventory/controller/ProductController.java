@@ -7,13 +7,16 @@ import com.retail.inventory.entity.Product;
 import com.retail.inventory.service.ProductService;
 import com.retail.inventory.vo.product.ProductVO;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Validated
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -24,7 +27,7 @@ public class ProductController {
      * 根据ID查询商品
      */
     @GetMapping("/{id}")
-    public Result<ProductVO> getById(@PathVariable Long id) {
+    public Result<ProductVO> getById(@NotNull @PathVariable Long id) {
         Product product = productService.getProductById(id);
         ProductVO vo = new ProductVO();
         BeanUtils.copyProperties(product, vo);
@@ -73,7 +76,7 @@ public class ProductController {
      * 删除商品
      */
     @DeleteMapping("/{id}")
-    public Result<Integer> delete(@PathVariable Integer id) {
+    public Result<Integer> delete(@NotNull @PathVariable Long id) {
         int result = productService.deleteProduct(id);
         return Result.success(result);
     }
