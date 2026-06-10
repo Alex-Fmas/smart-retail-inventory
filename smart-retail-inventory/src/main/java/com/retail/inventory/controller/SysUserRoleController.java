@@ -6,7 +6,7 @@ import com.retail.inventory.dto.userRole.UserRoleDeleteDTO;
 import com.retail.inventory.entity.SysRole;
 import com.retail.inventory.entity.SysUserRole;
 import com.retail.inventory.service.SysUserRoleService;
-import com.retail.inventory.vo.role.RoleVO;
+import com.retail.inventory.vo.userRole.UserRoleVO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.BeanUtils;
@@ -41,8 +41,8 @@ public class SysUserRoleController {
     /**
      * 根据用户ID查询拥有的角色ID列表
      */
-    @GetMapping("/role-ids")
-    public Result<List<Long>> listRoleIdsByUserId(@NotNull @RequestParam Long userId) {
+    @GetMapping("/role-ids/{userId}")
+    public Result<List<Long>> listRoleIdsByUserId(@NotNull @PathVariable Long userId) {
         List<Long> roleIds = sysUserRoleService.getRoleIdsByUserId(userId);
         return Result.success(roleIds);
     }
@@ -50,19 +50,18 @@ public class SysUserRoleController {
     /**
      * 根据用户ID查询拥有的角色列表
      */
-    @GetMapping("/roles")
-    public Result<List<RoleVO>> listRolesByUserId(@NotNull @RequestParam Long userId) {
+    @GetMapping("/roles/{userId}")
+    public Result<UserRoleVO> listRolesByUserId(@NotNull @PathVariable Long userId) {
         List<SysRole> rolesByUserId = sysUserRoleService.getRolesByUserId(userId);
 
-        List<RoleVO> voList = rolesByUserId.stream()
-                .map(role -> {
-                    RoleVO vo = new RoleVO();
-                    BeanUtils.copyProperties(role, vo);
-                    return vo;
-                })
+        List<String> roleNames = rolesByUserId.stream()
+                .map(SysRole::getRoleName)
                 .collect(Collectors.toList());
 
-        return Result.success(voList);
+        UserRoleVO roleVO = new UserRoleVO();
+        roleVO.setRoleNames(roleNames);
+
+        return Result.success(roleVO);
     }
 
     /**
