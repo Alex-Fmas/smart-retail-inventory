@@ -45,7 +45,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public List<SysUser> ListUser() {
+    public List<SysUser> listUser() {
         List<SysUser> list = sysUserMapper.ListUser();
         return list;
     }

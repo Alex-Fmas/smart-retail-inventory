@@ -50,7 +50,7 @@ public class SysUserServiceTest {
     @Test
     void test02() {
         System.out.println("------------ListUser------------");
-        List<SysUser> list = sysUserService.ListUser();
+        List<SysUser> list = sysUserService.listUser();
         for (SysUser sysUser : list) {
             System.out.println(sysUser);
         }
@@ -58,7 +58,7 @@ public class SysUserServiceTest {
         int i = sysUserService.deleteSysUser(3L);
         System.out.println("返回值(i):" + i);
         System.out.println("------------ListUser------------");
-        list = sysUserService.ListUser();
+        list = sysUserService.listUser();
         for (SysUser sysUser : list) {
             System.out.println(sysUser);
         }
