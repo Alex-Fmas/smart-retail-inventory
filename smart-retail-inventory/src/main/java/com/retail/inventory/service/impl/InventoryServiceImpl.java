@@ -30,9 +30,6 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public int updateInventory(Inventory inventory) {
-        if(inventory.getProductId() == null) {
-            throw new BizException(BizExceptionEnum.ID_NOT_NULL);
-        }
         int result = inventoryMapper.updateInventory(inventory);
         return result;
     }

@@ -29,9 +29,6 @@ public class StockLogServiceImpl implements StockLogService {
 
     @Override
     public int updateStockLog(StockLog stockLog) {
-        if(stockLog.getId() == null) {
-            throw new BizException(BizExceptionEnum.ID_NOT_NULL);
-        }
         int result = stockLogMapper.updateStockLog(stockLog);
         return result;
     }

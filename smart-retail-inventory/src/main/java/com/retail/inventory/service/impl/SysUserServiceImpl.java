@@ -21,9 +21,6 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public SysUser getSysUserByName(String name) {
-        if(name == null) {
-            throw new BizException(BizExceptionEnum.USERNAME_NOT_NULL);
-        }
         SysUser sysUserByName = sysUserMapper.getByUsername(name);
         return sysUserByName;
     }
@@ -37,9 +34,6 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public int updateSysUser(SysUser sysUser) {
-        if(sysUser.getId() == null) {
-            throw new BizException(BizExceptionEnum.ID_NOT_NULL);
-        }
         int result = sysUserMapper.updateSysUser(sysUser);
         return result;
     }

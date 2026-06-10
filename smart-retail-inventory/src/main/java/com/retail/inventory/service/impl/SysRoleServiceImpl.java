@@ -30,9 +30,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public int updateRole(SysRole role) {
-        if (role.getId() == null) {
-            throw new BizException(BizExceptionEnum.ID_NOT_NULL);
-        }
         int result = sysRoleMapper.updateRole(role);
         return result;
     }

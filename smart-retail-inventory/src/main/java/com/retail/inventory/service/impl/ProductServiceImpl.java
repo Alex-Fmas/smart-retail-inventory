@@ -30,9 +30,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int updateProduct(Product product) {
-        if(product.getId() == null) {
-            throw new BizException(BizExceptionEnum.ID_NOT_NULL);
-        }
         int result = productMapper.updateProduct(product);
         return result;
     }
