@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: smart-retail-inventory
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/smart_retail_inventory
+    username: root
+    password: 12345678
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.retail.inventory.mapper: debug
+
+jwt:
+  secret-key: 12345678901234567890123456789012
+  expiration: 86400000
+
+server:
+  port: 8080
+  address: 0.0.0.0
