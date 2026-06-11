@@ -18,4 +18,6 @@ public interface InventoryMapper {
     public int deleteInventory(Long id);
 
     public List<Inventory> ListInventory();
+
+    public Inventory getInventoryByProductId(Long productId, Integer areaType);
 }

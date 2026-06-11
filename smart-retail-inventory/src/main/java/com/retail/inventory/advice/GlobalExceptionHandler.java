@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     @ExceptionHandler(BizException.class)
     public Result handleException(BizException e) {
-        System.out.println("全局异常处理" + "BizException");
+        System.out.println("全局异常处理" + "BizException" + e.getMessage());
         return Result.error(e.getCode(), e.getMessage());
     }
 

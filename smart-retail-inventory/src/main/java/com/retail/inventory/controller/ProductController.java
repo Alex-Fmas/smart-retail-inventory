@@ -4,6 +4,8 @@ import com.retail.inventory.common.Result;
 import com.retail.inventory.dto.product.ProductAddDTO;
 import com.retail.inventory.dto.product.ProductUpdateDTO;
 import com.retail.inventory.entity.Product;
+import com.retail.inventory.exception.BizException;
+import com.retail.inventory.exception.BizExceptionEnum;
 import com.retail.inventory.service.ProductService;
 import com.retail.inventory.vo.product.ProductVO;
 import jakarta.validation.Valid;
@@ -29,6 +31,9 @@ public class ProductController {
     @GetMapping("/{id}")
     public Result<ProductVO> getById(@NotNull @PathVariable Long id) {
         Product product = productService.getProductById(id);
+        if (product == null) {
+            throw new BizException(BizExceptionEnum.PRODUCT_NOT_EXIST);
+        }
         ProductVO vo = new ProductVO();
         BeanUtils.copyProperties(product, vo);
         return Result.success(vo);

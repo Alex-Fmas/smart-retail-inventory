@@ -14,7 +14,8 @@ public enum BizExceptionEnum {
     PRODUCT_NOT_EXIST(1001, "商品不存在"),
     INVENTORY_NOT_EXIST(1002, "库存记录不存在"),
     STOCK_NOT_ENOUGH(1003, "库存不足"),
-
+    STOCK_CHANGE_TYPE_ERROR(1004, "无效的库存变动类型"),
+    STOCK_NOT_EXIST(1005, "库存记录不存在"),
     // 系统异常
     SYSTEM_ERROR(500, "服务器繁忙，请稍后再试");
 
