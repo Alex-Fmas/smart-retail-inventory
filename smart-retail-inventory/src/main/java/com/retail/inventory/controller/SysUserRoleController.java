@@ -3,6 +3,7 @@ package com.retail.inventory.controller;
 import com.retail.inventory.common.Result;
 import com.retail.inventory.dto.userRole.UserRoleAddDTO;
 import com.retail.inventory.dto.userRole.UserRoleDeleteDTO;
+import com.retail.inventory.dto.userRole.UserRoleUpdateDTO;
 import com.retail.inventory.entity.SysRole;
 import com.retail.inventory.entity.SysUserRole;
 import com.retail.inventory.service.SysUserRoleService;
@@ -70,6 +71,17 @@ public class SysUserRoleController {
     @DeleteMapping
     public Result<Integer> delete(@Valid @RequestBody UserRoleDeleteDTO dto) {
         int result = sysUserRoleService.deleteByUserId(dto.getUserId());
+        return Result.success(result);
+    }
+
+    /**
+     * 修改用户角色关系
+     */
+    @PutMapping
+    public Result<Integer> update(@Valid @RequestBody UserRoleUpdateDTO dto) {
+        SysUserRole sysUserRole = new SysUserRole();
+        BeanUtils.copyProperties(dto, sysUserRole);
+        int result = sysUserRoleService.changeUserRole(sysUserRole.getUserId(), sysUserRole.getRoleId());
         return Result.success(result);
     }
 }

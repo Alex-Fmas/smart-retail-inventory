@@ -33,4 +33,11 @@ public interface SysUserRoleService {
      * @return
      */
     List<SysRole> getRolesByUserId(Long userId);
+
+    /**
+     * 更换员工角色
+     * @param empId 员工ID
+     * @param newRoleId 新岗位ID
+     */
+    int changeUserRole(Long empId, Long newRoleId);
 }

@@ -1,4 +1,4 @@
-package com.retail.inventory.vo;
+package com.retail.inventory.vo.stock;
 
 import lombok.Data;
 

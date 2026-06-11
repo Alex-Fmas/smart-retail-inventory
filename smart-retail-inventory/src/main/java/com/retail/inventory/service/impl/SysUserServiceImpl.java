@@ -7,10 +7,13 @@ import com.retail.inventory.mapper.SysUserMapper;
 import com.retail.inventory.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
 public class SysUserServiceImpl implements SysUserService {
+    private static final String DEFAULT_PASSWORD = "123456";
+
     @Autowired
     SysUserMapper sysUserMapper;
     @Override
@@ -48,5 +51,43 @@ public class SysUserServiceImpl implements SysUserService {
     public List<SysUser> listUser() {
         List<SysUser> list = sysUserMapper.ListUser();
         return list;
+    }
+
+    @Override
+    public int deleteLogicSysUser(Long id) {
+        SysUser sysUserById = sysUserMapper.getSysUserById(id);
+        if (sysUserById == null) {
+            throw new BizException(BizExceptionEnum.USER_NOT_EXIST);
+        }
+        SysUser sysUser = new SysUser();
+        sysUser.setId(id);
+        sysUser.setStatus(0);
+        int result = sysUserMapper.updateSysUser(sysUser);
+        return result;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void changePassword(SysUser sysUser, String newPassword) {
+        SysUser sysUserById = sysUserMapper.getSysUserById(sysUser.getId());
+        if (sysUserById == null) {
+            throw new BizException(BizExceptionEnum.USER_NOT_EXIST);
+        }
+        String inputPassword = sysUser.getPassword();
+        if (inputPassword.equals(sysUserById.getPassword())) {
+            sysUser.setPassword(newPassword);
+        } else {
+            throw new BizException(BizExceptionEnum.USER_PASSWORD_ERROR);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void resetPassword(SysUser sysUser) {
+        SysUser sysUserById = sysUserMapper.getSysUserById(sysUser.getId());
+        if (sysUserById == null) {
+            throw new BizException(BizExceptionEnum.USER_NOT_EXIST);
+        }
+        sysUser.setPassword(DEFAULT_PASSWORD);
     }
 }

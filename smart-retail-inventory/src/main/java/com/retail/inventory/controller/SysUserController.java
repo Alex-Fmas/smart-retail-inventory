@@ -2,6 +2,7 @@ package com.retail.inventory.controller;
 
 import com.retail.inventory.common.Result;
 import com.retail.inventory.dto.user.UserAddDTO;
+import com.retail.inventory.dto.user.UserChangePasswordDTO;
 import com.retail.inventory.dto.user.UserUpdateDTO;
 import com.retail.inventory.entity.SysUser;
 import com.retail.inventory.service.SysUserService;
@@ -93,6 +94,36 @@ public class SysUserController {
         int result = sysUserService.deleteSysUser(id);
 
         return Result.success(result);
+    }
+    /**
+     * 逻辑删除用户
+     */
+    @DeleteMapping("/logic/{id}")
+    public Result<Integer> deleteLogic(@NotNull @PathVariable Long id) {
+        int result = sysUserService.deleteLogicSysUser(id);
+        return Result.success(result);
+    }
+
+    /**
+     * 更改密码
+     */
+    @PutMapping("/change-password")
+    public Result<String> changePassword(@Valid @RequestBody UserChangePasswordDTO userChangePasswordDTO) {
+        SysUser sysUser = new SysUser();
+        BeanUtils.copyProperties(userChangePasswordDTO, sysUser);
+        sysUserService.changePassword(sysUser, userChangePasswordDTO.getNewPassword());
+        return Result.success("修改成功");
+    }
+
+    /**
+     * 重制密码
+     */
+    @PutMapping("/reset-password")
+    public Result<String> resetPassword(@Valid @RequestBody UserChangePasswordDTO userChangePasswordDTO) {
+        SysUser sysUser = new SysUser();
+        BeanUtils.copyProperties(userChangePasswordDTO, sysUser);
+        sysUserService.resetPassword(sysUser);
+        return Result.success("重置成功");
     }
 
 }

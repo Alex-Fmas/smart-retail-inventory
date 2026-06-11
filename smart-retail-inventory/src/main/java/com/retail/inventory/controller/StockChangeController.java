@@ -4,7 +4,7 @@ import com.retail.inventory.common.Result;
 import com.retail.inventory.dto.stock.StockChangeDTO;
 import com.retail.inventory.entity.Inventory;
 import com.retail.inventory.service.StockChangeService;
-import com.retail.inventory.vo.StockChangeVO;
+import com.retail.inventory.vo.stock.StockChangeVO;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
