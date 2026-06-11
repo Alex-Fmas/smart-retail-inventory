@@ -2,7 +2,7 @@ package com.retail.inventory.controller;
 
 import com.retail.inventory.common.Result;
 import com.retail.inventory.dto.login.LoginDTO;
-import com.retail.inventory.service.authService;
+import com.retail.inventory.service.AuthService;
 import com.retail.inventory.vo.login.LoginVO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
-    authService authService;
+    AuthService authService;
 
     @PostMapping("/login")
     public Result<LoginVO> login(@Valid @RequestBody LoginDTO dto) {

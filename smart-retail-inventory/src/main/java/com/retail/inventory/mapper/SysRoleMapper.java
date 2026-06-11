@@ -17,4 +17,6 @@ public interface SysRoleMapper{
     int deleteRole(Long id);
 
     List<SysRole> listRoles();
+
+    List<String> listRoleNamesByUserId(Long userId);
 }

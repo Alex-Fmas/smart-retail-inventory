@@ -1,5 +1,6 @@
 package com.retail.inventory.controller;
 
+import com.retail.inventory.annotation.RequireRole;
 import com.retail.inventory.common.Result;
 import com.retail.inventory.dto.userRole.UserRoleAddDTO;
 import com.retail.inventory.dto.userRole.UserRoleDeleteDTO;
@@ -28,6 +29,7 @@ public class SysUserRoleController {
     /**
      * 添加用户角色关系
      */
+    @RequireRole("ADMIN")
     @PostMapping
     public Result<Integer> add(@Valid @RequestBody UserRoleAddDTO dto) {
 
@@ -68,6 +70,7 @@ public class SysUserRoleController {
     /**
      * 删除用户角色关系
      */
+    @RequireRole("ADMIN")
     @DeleteMapping
     public Result<Integer> delete(@Valid @RequestBody UserRoleDeleteDTO dto) {
         int result = sysUserRoleService.deleteByUserId(dto.getUserId());
@@ -77,6 +80,7 @@ public class SysUserRoleController {
     /**
      * 修改用户角色关系
      */
+    @RequireRole("ADMIN")
     @PutMapping
     public Result<Integer> update(@Valid @RequestBody UserRoleUpdateDTO dto) {
         SysUserRole sysUserRole = new SysUserRole();

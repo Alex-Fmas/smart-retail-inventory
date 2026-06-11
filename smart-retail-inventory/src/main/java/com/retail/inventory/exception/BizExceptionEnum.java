@@ -12,6 +12,7 @@ public enum BizExceptionEnum {
 
     // 权限异常
     USER_NOT_LOGIN(401, "用户未登录"),
+    NO_PERMISSION(403, "没有权限"),
 
     // 业务异常
     USER_NOT_EXIST(1000, "用户不存在"),

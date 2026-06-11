@@ -1,5 +1,6 @@
 package com.retail.inventory.controller;
 
+import com.retail.inventory.annotation.RequireRole;
 import com.retail.inventory.common.Result;
 import com.retail.inventory.dto.role.RoleAddDTO;
 import com.retail.inventory.dto.role.RoleUpdateDTO;
@@ -64,6 +65,7 @@ public class SysRoleController {
     /**
      * 新增角色
      */
+    @RequireRole("ADMIN")
     @PostMapping
     public Result<Long> add(@Valid @RequestBody RoleAddDTO dto) {
 
@@ -79,6 +81,7 @@ public class SysRoleController {
     /**
      * 修改角色
      */
+    @RequireRole("ADMIN")
     @PutMapping
     public Result<Integer> update(@Valid @RequestBody RoleUpdateDTO dto) {
 
@@ -94,6 +97,7 @@ public class SysRoleController {
     /**
      * 删除角色
      */
+    @RequireRole("ADMIN")
     @DeleteMapping("/{id}")
     public Result<Integer> delete(@NotNull @PathVariable Long id) {
 

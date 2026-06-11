@@ -1,5 +1,6 @@
 package com.retail.inventory.controller;
 
+import com.retail.inventory.annotation.RequireRole;
 import com.retail.inventory.common.Result;
 import com.retail.inventory.dto.user.UserAddDTO;
 import com.retail.inventory.dto.user.UserChangePasswordDTO;
@@ -66,6 +67,7 @@ public class SysUserController {
     /**
      * 新增用户
      */
+    @RequireRole("ADMIN")
     @PostMapping
     public Result<Long> add(@Valid @RequestBody UserAddDTO dto) {
 
@@ -80,6 +82,7 @@ public class SysUserController {
     /**
      * 修改用户
      */
+    @RequireRole("ADMIN")
     @PutMapping
     public Result<Integer> update(@Valid @RequestBody UserUpdateDTO dto) {
 
@@ -94,6 +97,7 @@ public class SysUserController {
     /**
      * 删除用户
      */
+    @RequireRole("ADMIN")
     @DeleteMapping("/{id}")
     public Result<Integer> delete(@NotNull @PathVariable Long id) {
 
@@ -104,6 +108,7 @@ public class SysUserController {
     /**
      * 逻辑删除用户
      */
+    @RequireRole("ADMIN")
     @DeleteMapping("/logic/{id}")
     public Result<Integer> deleteLogic(@NotNull @PathVariable Long id) {
         int result = sysUserService.deleteLogicSysUser(id);
@@ -124,6 +129,7 @@ public class SysUserController {
     /**
      * 重制密码
      */
+    @RequireRole("ADMIN")
     @PutMapping("/reset-password")
     public Result<String> resetPassword(@Valid @RequestBody UserResetPasswordDTO userResetPasswordDTO) {
         SysUser sysUser = new SysUser();

@@ -1,5 +1,6 @@
 package com.retail.inventory.controller;
 
+import com.retail.inventory.annotation.RequireRole;
 import com.retail.inventory.common.Result;
 import com.retail.inventory.dto.stock.StockLogAddDTO;
 import com.retail.inventory.entity.StockLog;
@@ -60,6 +61,7 @@ public class StockLogController {
     /**
      * 新增库存流水
      */
+    @RequireRole("ADMIN")
     @PostMapping
     public Result<Long> add(@Valid @RequestBody StockLogAddDTO dto) {
 
@@ -75,6 +77,7 @@ public class StockLogController {
     /**
      * 删除库存流水
      */
+    @RequireRole("ADMIN")
     @DeleteMapping("/{id}")
     public Result<Integer> delete(@NotNull @PathVariable Long id) {
 
