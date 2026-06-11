@@ -3,6 +3,8 @@ package com.retail.inventory.controller;
 import com.retail.inventory.common.Result;
 import com.retail.inventory.dto.stock.StockLogAddDTO;
 import com.retail.inventory.entity.StockLog;
+import com.retail.inventory.exception.BizException;
+import com.retail.inventory.exception.BizExceptionEnum;
 import com.retail.inventory.service.StockLogService;
 import com.retail.inventory.vo.stock.StockLogVO;
 import jakarta.validation.Valid;
@@ -29,6 +31,9 @@ public class StockLogController {
     public Result<StockLogVO> getById(@NotNull @PathVariable Long id) {
 
         StockLog stockLog = stockLogService.getStockLogById(id);
+        if(stockLog == null){
+            throw new BizException(BizExceptionEnum.DATA_NOT_EXIST);
+        }
         StockLogVO vo = new StockLogVO().setStockLog(stockLog);
 
         return Result.success(vo);

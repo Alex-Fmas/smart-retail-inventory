@@ -5,6 +5,7 @@ import com.retail.inventory.dto.inventory.InventoryAddDTO;
 import com.retail.inventory.dto.inventory.InventoryUpdateDTO;
 import com.retail.inventory.entity.Inventory;
 import com.retail.inventory.entity.Product;
+import com.retail.inventory.exception.BizExceptionEnum;
 import com.retail.inventory.service.InventoryService;
 import com.retail.inventory.service.ProductService;
 import com.retail.inventory.vo.inventory.InventoryVO;
@@ -35,6 +36,9 @@ public class InventoryController {
     @GetMapping("/{id}")
     public Result<InventoryVO> getInventoryById(@NotNull @PathVariable Long id) {
         Inventory inventoryById = inventoryService.getInventoryById(id);
+        if (inventoryById == null) {
+            return Result.error(BizExceptionEnum.INVENTORY_NOT_EXIST);
+        }
         Product productById = productService.getProductById(inventoryById.getProductId());
         InventoryVO inventoryVO = new InventoryVO().setInventory(inventoryById, productById.getName());
         return Result.success(inventoryVO);

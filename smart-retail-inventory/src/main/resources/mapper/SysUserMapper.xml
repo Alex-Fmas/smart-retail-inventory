@@ -18,6 +18,9 @@
     <update id="updateSysUser">
         UPDATE sys_user
         <set>
+            <if test="password != null">
+                password = #{password},
+            </if>
             <if test="nickname != null and nickname != ''">
                 nickname = #{nickname},
             </if>

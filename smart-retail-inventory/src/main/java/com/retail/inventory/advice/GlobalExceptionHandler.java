@@ -12,5 +12,10 @@ public class GlobalExceptionHandler {
         System.out.println("全局异常处理" + "BizException" + e.getMessage());
         return Result.error(e.getCode(), e.getMessage());
     }
+    @ExceptionHandler(Exception.class)
+    public Result handleException(Exception e) {
+        System.out.println("全局异常处理" + "Exception" + e.getClass() + e.getMessage());
+        return Result.error(500, e.getMessage());
+    }
 
 }

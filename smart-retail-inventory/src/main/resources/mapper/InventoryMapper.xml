@@ -9,6 +9,7 @@
         area_type,
         quantity,
         min_threshold
+        FROM inventory
         WHERE product_id = #{productId}
         AND area_type = #{areaType}
     </select>

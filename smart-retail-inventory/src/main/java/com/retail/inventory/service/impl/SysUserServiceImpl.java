@@ -76,6 +76,7 @@ public class SysUserServiceImpl implements SysUserService {
         String inputPassword = sysUser.getPassword();
         if (inputPassword.equals(sysUserById.getPassword())) {
             sysUser.setPassword(newPassword);
+            sysUserMapper.updateSysUser(sysUser);
         } else {
             throw new BizException(BizExceptionEnum.USER_PASSWORD_ERROR);
         }
@@ -89,5 +90,6 @@ public class SysUserServiceImpl implements SysUserService {
             throw new BizException(BizExceptionEnum.USER_NOT_EXIST);
         }
         sysUser.setPassword(DEFAULT_PASSWORD);
+        sysUserMapper.updateSysUser(sysUser);
     }
 }

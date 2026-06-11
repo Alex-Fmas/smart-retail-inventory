@@ -3,6 +3,8 @@ package com.retail.inventory.controller;
 import com.retail.inventory.common.Result;
 import com.retail.inventory.dto.role.RoleAddDTO;
 import com.retail.inventory.dto.role.RoleUpdateDTO;
+import com.retail.inventory.exception.BizException;
+import com.retail.inventory.exception.BizExceptionEnum;
 import com.retail.inventory.service.SysRoleService;
 import com.retail.inventory.vo.role.RoleVO;
 import com.retail.inventory.entity.SysRole;
@@ -30,6 +32,9 @@ public class SysRoleController {
     public Result<RoleVO> getById(@NotNull @PathVariable Long id) {
 
         SysRole role = sysRoleService.getRoleById(id);
+        if(role == null){
+            throw new BizException(BizExceptionEnum.ROLE_NOT_EXIST);
+        }
 
         RoleVO vo = new RoleVO();
         BeanUtils.copyProperties(role, vo);

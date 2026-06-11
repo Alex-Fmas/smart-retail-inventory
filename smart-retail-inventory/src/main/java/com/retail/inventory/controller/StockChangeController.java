@@ -21,9 +21,13 @@ public class StockChangeController {
 
     @PostMapping("/change")
     public Result<StockChangeVO> stockChange(@Valid @RequestBody StockChangeDTO dto) {
-        Inventory vo = stockChangeService.stockChange(dto);
+        Inventory inventory = stockChangeService.stockChange(dto);
         StockChangeVO stockChangeVO = new StockChangeVO();
-        BeanUtils.copyProperties(vo, stockChangeVO);
+
+        BeanUtils.copyProperties(dto, stockChangeVO);
+        if (inventory != null) {
+            BeanUtils.copyProperties(inventory, stockChangeVO);
+        }
 
         return Result.success(stockChangeVO);
     }

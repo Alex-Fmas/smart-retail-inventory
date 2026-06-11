@@ -3,8 +3,11 @@ package com.retail.inventory.controller;
 import com.retail.inventory.common.Result;
 import com.retail.inventory.dto.user.UserAddDTO;
 import com.retail.inventory.dto.user.UserChangePasswordDTO;
+import com.retail.inventory.dto.user.UserResetPasswordDTO;
 import com.retail.inventory.dto.user.UserUpdateDTO;
 import com.retail.inventory.entity.SysUser;
+import com.retail.inventory.exception.BizException;
+import com.retail.inventory.exception.BizExceptionEnum;
 import com.retail.inventory.service.SysUserService;
 import com.retail.inventory.vo.user.UserVO;
 import jakarta.validation.Valid;
@@ -31,6 +34,9 @@ public class SysUserController {
     public Result<UserVO> getById(@NotNull @PathVariable Long id) {
 
         SysUser user = sysUserService.getSysUserById(id);
+        if (user == null) {
+            throw new BizException(BizExceptionEnum.USER_NOT_EXIST);
+        }
 
         UserVO vo = new UserVO();
         BeanUtils.copyProperties(user, vo);
@@ -119,9 +125,9 @@ public class SysUserController {
      * 重制密码
      */
     @PutMapping("/reset-password")
-    public Result<String> resetPassword(@Valid @RequestBody UserChangePasswordDTO userChangePasswordDTO) {
+    public Result<String> resetPassword(@Valid @RequestBody UserResetPasswordDTO userResetPasswordDTO) {
         SysUser sysUser = new SysUser();
-        BeanUtils.copyProperties(userChangePasswordDTO, sysUser);
+        BeanUtils.copyProperties(userResetPasswordDTO, sysUser);
         sysUserService.resetPassword(sysUser);
         return Result.success("重置成功");
     }
