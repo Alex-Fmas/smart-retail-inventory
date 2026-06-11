@@ -20,7 +20,25 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(
-                        "/auth/login"
+                        "/",
+                        "/index.html",
+                        "/auth/login",
+                        "/error",
+                        "/favicon.ico",
+
+                        "/css/**",
+                        "/js/**",
+                        "/images/**",
+                        "/webjars/**",
+
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js",
+                        "/**/*.png",
+                        "/**/*.jpg",
+                        "/**/*.jpeg",
+                        "/**/*.gif",
+                        "/**/*.svg"
                 );
     }
 }

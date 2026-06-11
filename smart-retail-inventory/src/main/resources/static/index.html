@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>智慧零售库存管理系统</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <script src="/js/api.js"></script>
+  <script src="/js/app-core.js"></script>
+  <script src="/js/app-pages.js"></script>
+  <script src="/js/app-pages2.js"></script>
+  <script src="/js/app-pages3.js"></script>
+  <script>
+    // 注册用户角色路由（在 app-pages2.js 的 routes 之后）
+    routes['user-role'] = renderUserRole;
+  </script>
+</body>
+</html>

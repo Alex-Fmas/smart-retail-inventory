@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,6 +74,9 @@ public class SysUserController {
 
         SysUser user = new SysUser();
         BeanUtils.copyProperties(dto, user);
+        user.setStatus(1);
+        LocalDateTime now = LocalDateTime.now();
+        user.setCreateTime(now);
 
         Long id = sysUserService.addSysUser(user);
 
