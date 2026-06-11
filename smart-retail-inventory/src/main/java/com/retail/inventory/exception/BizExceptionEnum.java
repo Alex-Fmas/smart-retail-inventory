@@ -10,6 +10,9 @@ public enum BizExceptionEnum {
     USERNAME_NOT_NULL(400, "用户名不能为空"),
     DATA_NOT_EXIST(404, "数据不存在"),
 
+    // 权限异常
+    USER_NOT_LOGIN(401, "用户未登录"),
+
     // 业务异常
     USER_NOT_EXIST(1000, "用户不存在"),
     USER_NOT_ACTIVE(1001, "用户已失效"),

@@ -5,7 +5,9 @@ import com.retail.inventory.exception.BizException;
 import com.retail.inventory.exception.BizExceptionEnum;
 import com.retail.inventory.mapper.SysUserMapper;
 import com.retail.inventory.service.SysUserService;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     SysUserMapper sysUserMapper;
+    @Resource
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public SysUser getSysUserById(Long id) {
         SysUser sysUserById = sysUserMapper.getSysUserById(id);
@@ -30,6 +35,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public Long addSysUser(SysUser sysUser) {
+        sysUser.setPassword(passwordEncoder.encode(sysUser.getPassword()));
         int result = sysUserMapper.addSysUser(sysUser);
         Long id = sysUser.getId();
         return id;
@@ -74,12 +80,15 @@ public class SysUserServiceImpl implements SysUserService {
             throw new BizException(BizExceptionEnum.USER_NOT_EXIST);
         }
         String inputPassword = sysUser.getPassword();
-        if (inputPassword.equals(sysUserById.getPassword())) {
-            sysUser.setPassword(newPassword);
-            sysUserMapper.updateSysUser(sysUser);
-        } else {
+
+        boolean matches = passwordEncoder.matches(inputPassword, sysUserById.getPassword());
+
+        if (!matches) {
             throw new BizException(BizExceptionEnum.USER_PASSWORD_ERROR);
         }
+
+        sysUser.setPassword(passwordEncoder.encode(newPassword));
+        sysUserMapper.updateSysUser(sysUser);
     }
 
     @Override
@@ -89,7 +98,7 @@ public class SysUserServiceImpl implements SysUserService {
         if (sysUserById == null) {
             throw new BizException(BizExceptionEnum.USER_NOT_EXIST);
         }
-        sysUser.setPassword(DEFAULT_PASSWORD);
+        sysUser.setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
         sysUserMapper.updateSysUser(sysUser);
     }
 }
