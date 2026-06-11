@@ -29,8 +29,6 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         String token = request.getHeader("Authorization");
 
-        System.out.println("token:" + token);
-
         if (token == null || token.isBlank()) {
             throw new BizException(BizExceptionEnum.USER_NOT_LOGIN);
         }
