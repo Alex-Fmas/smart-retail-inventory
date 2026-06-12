@@ -13,8 +13,16 @@ mybatis:
     map-underscore-to-camel-case: true
 
 logging:
+  file:
+    path: ./logs
+    logback:
+      rollingpolicy:
+        file-name-pattern: inventory-%d{yyyy-MM-dd}.log  # 按天分割
+        max-file-size: 100MB                             # 单个文件最大大小
+        max-history: 30                                   # 保留最近30天日志
   level:
     com.retail.inventory.mapper: debug
+
 
 jwt:
   secret-key: 12345678901234567890123456789012
@@ -23,3 +31,4 @@ jwt:
 server:
   port: 8080
   address: 0.0.0.0
+

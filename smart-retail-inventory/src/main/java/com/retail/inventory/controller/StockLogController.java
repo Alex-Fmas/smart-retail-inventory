@@ -2,6 +2,7 @@ package com.retail.inventory.controller;
 
 import com.retail.inventory.annotation.RequireRole;
 import com.retail.inventory.common.Result;
+import com.retail.inventory.context.CurrentUserHolder;
 import com.retail.inventory.dto.stock.StockLogAddDTO;
 import com.retail.inventory.entity.StockLog;
 import com.retail.inventory.exception.BizException;
@@ -10,6 +11,7 @@ import com.retail.inventory.service.StockLogService;
 import com.retail.inventory.vo.stock.StockLogVO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Validated
 @RestController
 @RequestMapping("/stock-log")
@@ -71,6 +74,16 @@ public class StockLogController {
 
         Long id = stockLogService.addStockLog(stockLog);
 
+        log.info(
+                "操作人={} 商品id={} 来源区域id={} 目的区域={} 数量={} 类型={}",
+                CurrentUserHolder.getUsername(),
+                stockLog.getProductId(),
+                stockLog.getFromArea(),
+                stockLog.getToArea(),
+                stockLog.getQuantity(),
+                stockLog.getType()
+        );
+
         return Result.success(id);
     }
 
@@ -82,6 +95,12 @@ public class StockLogController {
     public Result<Integer> delete(@NotNull @PathVariable Long id) {
 
         int result = stockLogService.deleteStockLog(id);
+
+        log.info(
+                "操作人={} 删除库存流水={}",
+                CurrentUserHolder.getUsername(),
+                id
+        );
 
         return Result.success(result);
     }
